@@ -17,7 +17,7 @@ export default HomeScreen = () => {
   const [newTimerValue, setNewTimerValue] = useState("");
   const [newRoutineValue, setNewRoutineValue] = useState("");
   const [cards, setCards] = useState([
-    <View style={{ height: StatusBar.currentHeight }}></View>,
+    // <View style={{ height: StatusBar.currentHeight }}></View>,
   ]);
 
   const handleAdd = () => {
@@ -39,7 +39,7 @@ export default HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-        {cards.length === 1 ? (
+        {cards.length === 0 ? (
           <View>
             {cards[0]}
             <Text style={FONTS.h1_semiBold}>There are no timers to show!</Text>

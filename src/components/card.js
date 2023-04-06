@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { SIZES, FONTS, COLORS, SHADOW } from "../constants";
 import { Countdown } from "./countdown";
@@ -45,6 +45,24 @@ const styles = StyleSheet.create({
 });
 
 export default function Card(props) {
+  const [pauseState, setPauseState] = useState(false);
+  const [resetState, setResetState] = useState(false);
+
+  useEffect(() => {
+    setResetState(false);
+  }, [resetState, pauseState]);
+
+  const rightFunction = () => {
+    setResetState(true);
+  };
+
+  const leftFunction = () => {
+    if (pauseState === false) {
+      setPauseState(true);
+    } else if (pauseState === true) {
+      setPauseState(false);
+    }
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -52,17 +70,16 @@ export default function Card(props) {
         style={styles.image}
       ></Image>
       <View style={styles.view}>
-        <TouchableOpacity
-          style={styles.viewLeft}
-          onPress={() => console.log(props.timeset)}
-        >
+        <TouchableOpacity style={styles.viewLeft} onPress={leftFunction}>
           <Text style={styles.text}>{props.text}</Text>
         </TouchableOpacity>
-        <View style={styles.viewRight}>
-          <TouchableOpacity>
-            <Countdown timeSet={props.timeSet}></Countdown>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.viewRight} onPress={rightFunction}>
+          <Countdown
+            timeSet={props.timeSet}
+            paused={pauseState}
+            reset={resetState}
+          ></Countdown>
+        </TouchableOpacity>
       </View>
     </View>
   );

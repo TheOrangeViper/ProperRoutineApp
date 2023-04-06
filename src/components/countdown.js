@@ -13,35 +13,36 @@ const styles = StyleSheet.create({});
 
 const Countdown = (props) => {
   const [remainingTime, setRemainingTime] = useState(props.timeSet);
-  const [countdownStatus, setCountdownStatus] = useState("paused");
   var remainingMinutes;
   var remainingSeconds;
 
   useEffect(() => {
     {
-      if (countdownStatus === "unpaused") {
+      if (props.reset === true) {
+        setRemainingTime(props.timeSet);
+      } else if (props.paused === false) {
         const intervalId = setInterval(() => {
           setRemainingTime((prevTime) => prevTime - 1);
         }, 1000);
         return () => clearInterval(intervalId);
-      } else {
+      } else if (props.paused === true) {
         setRemainingTime(remainingTime);
         return () => null;
       }
     }
-  }, [countdownStatus]);
+  }, [props.paused, props.reset]);
 
-  const resetTimer = () => {
-    setRemainingTime(props.timeSet);
-  };
+  // const resetTimer = () => {
+  //   setRemainingTime(props.timeSet);
+  // };
 
-  const changePauseState = () => {
-    if (countdownStatus === "unpaused") {
-      setCountdownStatus("paused");
-    } else if (countdownStatus === "paused") {
-      setCountdownStatus("unpaused");
-    }
-  };
+  // const changePauseState = () => {
+  //   if (countdownStatus === "unpaused") {
+  //     setCountdownStatus("paused");
+  //   } else if (countdownStatus === "paused") {
+  //     setCountdownStatus("unpaused");
+  //   }
+  // };
 
   remainingMinutes = Math.floor(remainingTime / 60)
     .toString()
@@ -67,15 +68,7 @@ const Countdown = (props) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={resetTimer}>
-        <CountDownDisplay />
-      </TouchableOpacity>
-      {/* <TouchableOpacity onPress={() => changePauseState()}> */}
-      <TouchableOpacity onPress={() => changePauseState()}>
-        <View>
-          <Text>press me</Text>
-        </View>
-      </TouchableOpacity>
+      <CountDownDisplay />
     </View>
   );
 };
