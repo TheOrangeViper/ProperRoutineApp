@@ -16,9 +16,7 @@ import { COLORS, SIZES, FONTS, SHADOW } from "../constants";
 export default HomeScreen = () => {
   const [newTimerValue, setNewTimerValue] = useState("");
   const [newRoutineValue, setNewRoutineValue] = useState("");
-  const [cards, setCards] = useState([
-    // <View style={{ height: StatusBar.currentHeight }}></View>,
-  ]);
+  const [cards, setCards] = useState([]);
 
   const handleAdd = () => {
     var allCards = cards;
@@ -38,6 +36,7 @@ export default HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={{ height: StatusBar.currentHeight }}></View>
       <View>
         {cards.length === 0 ? (
           <View>

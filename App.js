@@ -1,25 +1,19 @@
 import React from "react";
-import { useCallback } from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Navigation from "./src/navigation";
 import { useFonts } from "expo-font";
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    Montserrat_SemiBold: require("./assets/fonts/Montserrat-SemiBold.ttf"),
-    Poppins_Black: require("./assets/fonts/Poppins-Black.ttf"),
-    Poppins_Medium: require("./assets/fonts/Poppins-Medium.ttf"),
-    Poppins_Regular: require("./assets/fonts/Poppins-Regular.ttf"),
+  let [fontsLoaded] = useFonts({
+    Roboto_Mono_Light: require("./assets/fonts/RobotoMono-Light.ttf"),
+    Roboto_Mono_Regular: require("./assets/fonts/RobotoMono-Regular.ttf"),
+    Roboto_Mono_SemiBold: require("./assets/fonts/RobotoMono-SemiBold.ttf"),
+    Roboto_Mono_Bold: require("./assets/fonts/RobotoMono-Bold.ttf"),
   });
 
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
   if (!fontsLoaded) {
-    return null;
+    return;
   }
 
   return <Navigation />;

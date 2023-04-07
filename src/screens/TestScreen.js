@@ -1,18 +1,10 @@
 import React from "react";
 import { Text, View, Button } from "react-native";
-
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, child, get, onValue } from "firebase/database";
+import { app } from "../../firebase";
 
-const firebaseConfig = {
-  databaseURL: "https://fir-forroutineapp-default-rtdb.firebaseio.com", //my databaseURL
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getDatabase();
-
-const dbRef = ref(getDatabase());
+const db = getDatabase(app);
+const dbRef = ref(db);
 
 function writeUserData(userId, name, email) {
   set(ref(db, "users/" + userId), {

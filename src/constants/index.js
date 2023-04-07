@@ -1,22 +1,29 @@
 const COLORS = {
-  primary: "#390420",
-  secondary: "#b2001e",
-  tertiary: "#f54516",
-  quaternary: "#003049",
-  quinary: "#669bbc",
+  white: "#FFFFFF",
+  black: "#000000",
+  primary: "#9d9dac",
+  secondary: "#fda801",
+  tertiary: "#01bbdd",
+  quaternary: "#7b04cb",
+  quinary: "#30c899",
+  hyperlink: "#FDB075",
 };
 
 const SIZES = {
-  padding: 15,
+  padding: 12,
   borderRadius: 15,
   textBoxRadius: 25,
-  h1: 30,
-  h2: 23,
+  h1: 25,
+  h2: 20,
+  defaultMargin: 10,
+  largeMargin: 50,
 };
 
 const FONTS = {
-  h1_semiBold: { fontSize: SIZES.h1, fontFamily: "Poppins_Medium" },
-  h2_semiBold: { fontSize: SIZES.h2, fontFamily: "Poppins_Regular" },
+  Roboto_Mono_Light: "Roboto_Mono_Light",
+  Roboto_Mono_Regular: "Roboto_Mono_Regular",
+  Roboto_Mono_Semibold: "Roboto_Mono_Semibold",
+  Roboto_Mono_Bold: "Roboto_Mono_Bold",
 };
 
 const SHADOW = {
