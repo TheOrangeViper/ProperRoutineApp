@@ -1,15 +1,5 @@
-import React, { Component, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  StatusBar,
-  Platform,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, StatusBar, FlatList } from "react-native";
 import { Card, Button1, TextInput1 } from "../components";
 import { COLORS, SIZES, FONTS, SHADOW } from "../constants";
 
@@ -40,16 +30,21 @@ export default HomeScreen = () => {
       <View>
         {cards.length === 0 ? (
           <View>
-            <Text style={FONTS.h1_semiBold}>There are no timers to show!</Text>
+            <Text
+              style={{
+                FontFamily: FONTS.Roboto_Mono_Bold,
+                color: COLORS.white,
+              }}
+            >
+              There are no timers to show!
+            </Text>
           </View>
         ) : (
-          <View>
-            <FlatList
-              data={[cards]}
-              renderItem={({ item }) => item}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
+          <FlatList
+            data={[cards]}
+            renderItem={({ item }) => item}
+            showsVerticalScrollIndicator={false}
+          />
         )}
       </View>
       <View style={styles.textBoxWrapper}>

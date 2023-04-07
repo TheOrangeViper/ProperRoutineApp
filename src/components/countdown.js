@@ -9,7 +9,13 @@ import {
 } from "react-native";
 import { SIZES, FONTS, COLORS, SHADOW } from "../constants";
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: FONTS.Roboto_Mono_Bold, //if you look back at where h2_semiBold is stored there are curly braces, the ... removed the curly braces by saying that it wants to go inside of it.
+    fontSize: SIZES.h0 + 20,
+    color: COLORS.white,
+  },
+});
 
 const Countdown = (props) => {
   const [remainingTime, setRemainingTime] = useState(props.timeSet);
@@ -32,18 +38,6 @@ const Countdown = (props) => {
     }
   }, [props.paused, props.reset]);
 
-  // const resetTimer = () => {
-  //   setRemainingTime(props.timeSet);
-  // };
-
-  // const changePauseState = () => {
-  //   if (countdownStatus === "unpaused") {
-  //     setCountdownStatus("paused");
-  //   } else if (countdownStatus === "paused") {
-  //     setCountdownStatus("unpaused");
-  //   }
-  // };
-
   remainingMinutes = Math.floor(remainingTime / 60)
     .toString()
     .padStart(2, "0");
@@ -54,12 +48,10 @@ const Countdown = (props) => {
 
   const CountDownDisplay = () => {
     if (remainingTime < 0) {
-      return (
-        <Text style={{ fontSize: 60, color: "#f54516" }}>Timer's Up!</Text>
-      );
+      return <Text style={styles.text}>Timer's Up!</Text>;
     } else {
       return (
-        <Text style={{ fontSize: 80, color: "#f54516" }}>
+        <Text style={styles.text}>
           {remainingMinutes}:{remainingSeconds}
         </Text>
       );

@@ -16,7 +16,8 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="LoginScreen" component={LoginScreen}></Stack.Screen>
-        <Stack.Screen
+        <Stack.Screen name="TestScreen" component={TestScreen}></Stack.Screen>
+        {/* <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
         ></Stack.Screen>
@@ -24,7 +25,7 @@ const Navigation = () => {
           name="RegisterConfirmScreen"
           component={RegisterConfirmScreen}
         ></Stack.Screen>
-        <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen>
+        <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

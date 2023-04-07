@@ -1,24 +1,31 @@
-import React from "react";
-import { Text, View, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, Button, FlatList, SafeAreaView } from "react-native";
 import { getDatabase, ref, set, child, get, onValue } from "firebase/database";
-import { app } from "../../firebase";
+import { app, database, auth } from "../../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
-const db = getDatabase(app);
-const dbRef = ref(db);
+import { Card } from "../components";
 
-function writeUserData(userId, name, email) {
-  set(ref(db, "users/" + userId), {
-    username: name,
-    email: email,
-  });
+import { COLORS } from "../constants";
+
+const dbRef = ref(database);
+
+function writeUserData(userId, text) {
+  if (userId) {
+    set(ref(database, "users/" + userId), {
+      text: text,
+    });
+  }
 }
 
 function readUserData(userId) {
-  const userDataRef = ref(db, "users/" + userId);
-  onValue(userDataRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
+  if (userId) {
+    const userDataRef = ref(database, "users/" + userId);
+    onValue(userDataRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+  }
 }
 
 function readUserDataAnotherWay(userId) {
@@ -36,29 +43,77 @@ function readUserDataAnotherWay(userId) {
 }
 
 const TestScreen = () => {
+  const [userID, setUserID] = useState();
+  const [cardsData, setCardsData] = useState([]);
+
+  const sendUserCards = () => {
+    if (userID) {
+      set(ref(database, "users/" + userID), {
+        cardsData,
+      });
+    }
+  };
+
+  const receiveUserCards = () => {
+    if (userID) {
+      const userDataRef = ref(database, "users/" + userID);
+      onValue(userDataRef, (snapshot) => {
+        const data = snapshot.val();
+        setCardsData(data.cardsData);
+      });
+    }
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserID(user.uid);
+      }
+    });
+  });
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "space-evenly",
-        alignItems: "center",
-      }}
-    >
+    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+      <FlatList
+        data={cardsData}
+        renderItem={({ item }) => (
+          <Card text={item.text} timeSet={item.timeSet}></Card>
+        )}
+        keyExtractor={(item) => item.id}
+      />
       <Button
         title={"click to store data"}
-        onPress={() =>
-          writeUserData("69", "Sebastian and Oscar", "gay@gmail.com")
-        }
+        onPress={() => sendUserCards()}
       ></Button>
       <Button
         title={"click to receive data"}
-        onPress={() => readUserData("69")}
+        onPress={() => receiveUserCards()}
       ></Button>
-      <Button
-        title={"click to receive data another way"}
-        onPress={() => readUserDataAnotherWay("69")}
-      ></Button>
-    </View>
+    </SafeAreaView>
+
+    // <View
+    //   style={{
+    //     flex: 1,
+    //     justifyContent: "space-evenly",
+    //     alignItems: "center",
+    //     backgroundColor: COLORS.black,
+    //   }}
+    // >
+    //   {/* <Card text={"Calculus"} timeSet={100}></Card> */}
+
+    // {/* <Button
+    //   title={"click to store data"}
+    //   onPress={() => writeUserData(userID, "This is a fcustom message")}
+    // ></Button> */}
+    //   <Button
+    //     title={"click to receive data"}
+    //     onPress={() => readUserData(userID)}
+    //   ></Button>
+    //   {/* <Button
+    //     title={"click to receive data another way"}
+    //     onPress={() => readUserDataAnotherWay("69")}
+    //   ></Button> */}
+    // </View>
   );
 };
 export default TestScreen;

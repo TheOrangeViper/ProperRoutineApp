@@ -11,8 +11,9 @@ const COLORS = {
 
 const SIZES = {
   padding: 12,
-  borderRadius: 15,
+  borderRadius: 18,
   textBoxRadius: 25,
+  h0: 35,
   h1: 25,
   h2: 20,
   defaultMargin: 10,

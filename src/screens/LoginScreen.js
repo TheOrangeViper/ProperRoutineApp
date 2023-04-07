@@ -9,6 +9,7 @@ import {
 
 import { Button1, TextInput1 } from "../components";
 import { COLORS, SIZES } from "../constants";
+
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +29,8 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         console.log("Logged in with:" + user.email);
         if (user.emailVerified === true) {
-          navigation.navigate("HomeScreen");
+          // navigation.navigate("HomeScreen");
+          navigation.navigate("TestScreen");
         } else {
           navigation.navigate("RegisterConfirmScreen");
         }
