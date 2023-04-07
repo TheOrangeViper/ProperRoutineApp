@@ -10,7 +10,7 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
-import { Card } from "../components";
+import { Card, Button1, TextInput1 } from "../components";
 import { COLORS, SIZES, FONTS, SHADOW } from "../constants";
 
 export default HomeScreen = () => {
@@ -40,35 +40,33 @@ export default HomeScreen = () => {
       <View>
         {cards.length === 0 ? (
           <View>
-            {cards[0]}
             <Text style={FONTS.h1_semiBold}>There are no timers to show!</Text>
           </View>
         ) : (
-          <FlatList
-            data={cards}
-            renderItem={({ item }) => item}
-            showsVerticalScrollIndicator={false}
-          />
+          <View>
+            <FlatList
+              data={[cards]}
+              renderItem={({ item }) => item}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         )}
       </View>
       <View style={styles.textBoxWrapper}>
-        <TextInput
-          style={styles.textInput}
+        <TextInput1
           placeholder="New Routine"
-          placeholderTextColor={COLORS.secondary}
-          onChangeText={setNewRoutineValue}
+          setValue={setNewRoutineValue}
           value={newRoutineValue}
-        ></TextInput>
-        <TextInput
-          style={styles.textInput}
+          width={"36%"}
+        ></TextInput1>
+        <TextInput1
           placeholder="Timer Value"
           placeholderTextColor={COLORS.secondary}
-          onChangeText={setNewTimerValue}
+          setValue={setNewTimerValue}
           value={newTimerValue}
-        ></TextInput>
-        <TouchableOpacity style={styles.button} onPress={handleAdd}>
-          <Text style={FONTS.h1_semiBold}>+</Text>
-        </TouchableOpacity>
+          width={"36%"}
+        ></TextInput1>
+        <Button1 onPress={handleAdd} width="15%"></Button1>
       </View>
     </View>
   );
@@ -77,7 +75,7 @@ export default HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.black,
     padding: SIZES.padding,
     paddingTop: 0,
     paddingBottom: 0,
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 2,
     ...SHADOW, //if you look back at where SHADOW is stored there are curly braces, the ... removed the curly braces by saying that it wants to go inside of it.
     borderRadius: SIZES.textBoxRadius,
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: COLORS.secondary,
     color: COLORS.primary,
     height: 70,
     // width: "85%",
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: COLORS.secondary,
     height: "100%",
     // width: "15%",
     borderRadius: 100,

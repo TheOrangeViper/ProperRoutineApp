@@ -10,17 +10,19 @@ const TextInput1 = ({
   width,
 }) => {
   return (
-    <View style={styles.textinput1}>
+    <View
+      style={[
+        styles.textinput1,
+        height ? { height: height } : {},
+        width ? { width: width } : {},
+      ]}
+    >
       <TextInput
         placeholder={placeholder}
         onChangeText={setValue}
         value={value}
         secureTextEntry={secureTextEntry}
-        style={[
-          styles.textinput1_text,
-          height ? { height: height } : {},
-          width ? { width: width } : {},
-        ]}
+        style={styles.textinput1_text}
       ></TextInput>
     </View>
   );
@@ -32,7 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 15,
     paddingVertical: 10,
-    paddingHorizontal: SIZES.padding,
     margin: SIZES.defaultMargin,
     width: "80%",
   },
